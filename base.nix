@@ -71,7 +71,6 @@ in
       consul
       vault
       nomad
-      direnv
       vscode
       scc
       python310Packages.ipython
@@ -141,6 +140,12 @@ in
     options = {
       selection-clipboard = "clipboard";
     };
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
   };
 
   programs.home-manager.enable = true;
