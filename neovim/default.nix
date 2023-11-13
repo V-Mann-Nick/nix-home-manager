@@ -1,22 +1,13 @@
 { pkgs, lib, ... }:
 let
-  pluginGit = ref: repo: pkgs.vimUtils.buildVimPlugin {
-    pname = "${lib.strings.sanitizeDerivationName repo}";
-    version = ref;
-    src = builtins.fetchGit {
-      url = "https://github.com/${repo}.git";
-      ref = ref;
-    };
-  };
-  pluginGitRev = rev: repo: pkgs.vimUtils.buildVimPluginFrom2Nix {
+  plugin = { repo, ref, rev }: pkgs.vimUtils.buildVimPlugin {
     pname = "${lib.strings.sanitizeDerivationName repo}";
     version = rev;
     src = builtins.fetchGit {
       url = "https://github.com/${repo}.git";
-      rev = rev;
+      inherit ref rev;
     };
   };
-  plugin = pluginGit "HEAD";
 in
 {
   enable = true;
@@ -152,7 +143,11 @@ in
     }
     markdown-preview-nvim
     {
-      plugin = (plugin "nvim-lualine/lualine.nvim");
+      plugin = (plugin { 
+        repo = "nvim-lualine/lualine.nvim";
+        ref = "master";
+        rev = "2248ef254d0a1488a72041cfb45ca9caada6d994";
+      });
       config = ''
         lua << EOF
         require("lualine").setup({
@@ -209,7 +204,11 @@ in
     vim-gitgutter
     lightspeed-nvim
     {
-      plugin = (plugin "github/copilot.vim");
+      plugin = (plugin {
+        repo = "github/copilot.vim";
+        ref = "release";
+        rev = "309b3c803d1862d5e84c7c9c5749ae04010123b8";
+      });
       config = ''
         imap <silent><script><expr> <C-Enter> copilot#Accept("\<CR>")
         let g:copilot_no_tab_map = v:true
@@ -223,8 +222,11 @@ in
         let g:lf_replace_netrw = 1
       '';
     }
-    (plugin "andreshazard/vim-freemarker")
-    (plugin "wuelnerdotexe/vim-astro")
+    (plugin {
+      repo = "wuelnerdotexe/vim-astro";
+      ref = "main";
+      rev = "9b4674ecfe1dd84b5fb9b4de1653975de6e8e2e1";
+    })
   ];
   extraConfig = ''
     let mapleader = ","

@@ -31,9 +31,14 @@ let
   context = args // { inherit aliases; };
 in
 {
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
+
   home = {
     inherit username homeDirectory;
     stateVersion = "23.11";
+
     sessionVariables = {
       TERMINAL = "kitty";
       BROWSER = "firefox";
@@ -43,10 +48,12 @@ in
       # Podman auth
       REGISTRY_AUTH_FILE = "${config.xdg.configHome}/containers/auth.json";
     };
+
     sessionPath = [
       "${homeDirectory}/.local/bin"
       "${homeDirectory}/.yarn/bin"
     ];
+
     packages = with pkgs; [
       lsd
       neofetch
@@ -107,6 +114,7 @@ in
       p = "sudo pacman";
     } // aliasesCdls;
   };
+
   fonts.fontconfig.enable = true;
 
   programs.kitty = import ./kitty context;
