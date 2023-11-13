@@ -74,11 +74,6 @@ in
       direnv
       vscode
       scc
-      glow
-      odt2txt
-      catdoc
-      catdocx
-      ffmpegthumbnailer
       python310Packages.ipython
       terraform
       nomad-pack
