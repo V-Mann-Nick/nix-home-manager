@@ -9,14 +9,18 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      homeConfigurations."nicklas" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./home.nix ];
-      };
+  outputs = {
+    nixpkgs,
+    home-manager,
+    ...
+  }: let
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
+  in {
+    homeConfigurations."nicklas" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = [./home.nix];
     };
+    formatter.${system} = pkgs.alejandra;
+  };
 }

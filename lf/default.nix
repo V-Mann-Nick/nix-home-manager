@@ -1,5 +1,9 @@
-{ pkgs, lib, aliases, ... }:
-let 
+{
+  pkgs,
+  lib,
+  aliases,
+  ...
+}: let
   bashShebang = "#!${pkgs.bash}/bin/bash";
   cleanerPackage = pkgs.writeScriptBin "cleaner.sh" ''
     ${bashShebang}
@@ -64,28 +68,33 @@ let
   icons = import ./icons.nix;
   setToEnvVar = set: lib.concatStringsSep ":" (lib.attrValues (lib.mapAttrs (ext: icon: "${ext}=${icon}") set));
   iconEnvVar = setToEnvVar icons;
-  aliasesCd = builtins.listToAttrs (lib.mapAttrsToList (alias: path: { name = "g${alias}"; value = "cd ${path}"; }) aliases);
+  aliasesCd = builtins.listToAttrs (lib.mapAttrsToList (alias: path: {
+      name = "g${alias}";
+      value = "cd ${path}";
+    })
+    aliases);
   package = pkgs.writeScriptBin "lf" ''
     ${bashShebang}
     LF_ICONS="${iconEnvVar}" ${lf} "$@"
   '';
-in
-{
+in {
   enable = true;
   package = package;
   settings = {
     drawbox = true;
     icons = true;
   };
-  keybindings = {
-    "D" = ''
-      $IFS=''\"$(printf ''\'''\\n''\\t''\')''\"; ${pkgs.trash-cli}/bin/trash-put -- $fx
-    '';
-    "C" = "push $touch<space>";
-    "M" = "push $mkdir<space>";
-    "<backspace>" = "set hidden!";
-    "<backspace2>" = "set hidden!";
-  } // aliasesCd;
+  keybindings =
+    {
+      "D" = ''
+        $IFS=''\"$(printf ''\'''\\n''\\t''\')''\"; ${pkgs.trash-cli}/bin/trash-put -- $fx
+      '';
+      "C" = "push $touch<space>";
+      "M" = "push $mkdir<space>";
+      "<backspace>" = "set hidden!";
+      "<backspace2>" = "set hidden!";
+    }
+    // aliasesCd;
   extraConfig = ''
     set previewer ${previewer}
     set cleaner ${cleaner}

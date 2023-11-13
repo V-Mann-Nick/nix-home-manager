@@ -1,5 +1,8 @@
-{ pkgs, homeDirectory, ... }:
 {
+  pkgs,
+  homeDirectory,
+  ...
+}: {
   enable = true;
   package = pkgs.writeScriptBin "kittyFast" ''
     #!/bin/sh

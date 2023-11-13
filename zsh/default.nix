@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{config, ...}: {
   enable = true;
   enableAutosuggestions = false;
   syntaxHighlighting.enable = false;

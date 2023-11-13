@@ -1,17 +1,31 @@
-args@{ config, pkgs, lib, directories, username, homeDirectory, ... }:
-let 
-  aliases =
-    let
-      directoryEntryToAliasEntryList = name: { aliases, path }: (
-        map (alias: { name = alias; value = path; }) aliases
-      );
-      aliasEntryLists = lib.mapAttrsToList directoryEntryToAliasEntryList directories;
-      aliasEntries = builtins.concatLists aliasEntryLists;
-    in builtins.listToAttrs aliasEntries;
-  aliasesCdls = 
-    let
-      cdls = dir: "cd ${dir} && ls";
-    in lib.mapAttrs (name: dir: cdls dir) aliases;
+args @ {
+  config,
+  pkgs,
+  lib,
+  directories,
+  username,
+  homeDirectory,
+  ...
+}: let
+  aliases = let
+    directoryEntryToAliasEntryList = name: {
+      aliases,
+      path,
+    }: (
+      map (alias: {
+        name = alias;
+        value = path;
+      })
+      aliases
+    );
+    aliasEntryLists = lib.mapAttrsToList directoryEntryToAliasEntryList directories;
+    aliasEntries = builtins.concatLists aliasEntryLists;
+  in
+    builtins.listToAttrs aliasEntries;
+  aliasesCdls = let
+    cdls = dir: "cd ${dir} && ls";
+  in
+    lib.mapAttrs (name: dir: cdls dir) aliases;
   nullPackage = name: pkgs.writeShellScriptBin name "";
   lfcdSource = pkgs.writeText "lfcd-source" ''
     lfcdFn () {
@@ -28,9 +42,8 @@ let
       fi
     }
   '';
-  context = args // { inherit aliases; };
-in
-{
+  context = args // {inherit aliases;};
+in {
   nixpkgs.config = {
     allowUnfree = true;
   };
@@ -95,24 +108,26 @@ in
       jpegoptim
       nodePackages.ts-node
     ];
-    shellAliases = {
-      ls = "lsd -la";
-      suvim = "sudo nvim -u ${config.xdg.configHome}/nvim/init.lua";
-      g = "git";
-      sw = "home-manager switch";
-      home = "$EDITOR ${config.xdg.configHome}/home-manager/home.nix";
-      pc = "podman-compose";
-      "sensible-editor" = "$EDITOR";
-      c = "nvim .";
-      py = "poetry";
-      ipv = "ipython --TerminalInteractiveShell.editing_mode=vi";
-      n = "pnpm";
-      l = "source ${lfcdSource} && lfcdFn";
-      D = "trash-put";
-      kitty = "__EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json /usr/bin/kitty";
-      envycontrol = "sudo python ${directories.code.path}/open-source/envycontrol/envycontrol.py";
-      p = "sudo pacman";
-    } // aliasesCdls;
+    shellAliases =
+      {
+        ls = "lsd -la";
+        suvim = "sudo nvim -u ${config.xdg.configHome}/nvim/init.lua";
+        g = "git";
+        sw = "home-manager switch";
+        home = "$EDITOR ${config.xdg.configHome}/home-manager/home.nix";
+        pc = "podman-compose";
+        "sensible-editor" = "$EDITOR";
+        c = "nvim .";
+        py = "poetry";
+        ipv = "ipython --TerminalInteractiveShell.editing_mode=vi";
+        n = "pnpm";
+        l = "source ${lfcdSource} && lfcdFn";
+        D = "trash-put";
+        kitty = "__EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json /usr/bin/kitty";
+        envycontrol = "sudo python ${directories.code.path}/open-source/envycontrol/envycontrol.py";
+        p = "sudo pacman";
+      }
+      // aliasesCdls;
   };
 
   fonts.fontconfig.enable = true;
@@ -136,7 +151,6 @@ in
       color = "always";
     };
   };
-
 
   programs.pyenv = {
     enable = true;

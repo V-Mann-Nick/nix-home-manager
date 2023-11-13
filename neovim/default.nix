@@ -1,15 +1,22 @@
-{ pkgs, lib, ... }:
-let
-  plugin = { repo, ref, rev }: pkgs.vimUtils.buildVimPlugin {
-    pname = "${lib.strings.sanitizeDerivationName repo}";
-    version = rev;
-    src = builtins.fetchGit {
-      url = "https://github.com/${repo}.git";
-      inherit ref rev;
-    };
-  };
-in
 {
+  pkgs,
+  lib,
+  ...
+}: let
+  plugin = {
+    repo,
+    ref,
+    rev,
+  }:
+    pkgs.vimUtils.buildVimPlugin {
+      pname = "${lib.strings.sanitizeDerivationName repo}";
+      version = rev;
+      src = builtins.fetchGit {
+        url = "https://github.com/${repo}.git";
+        inherit ref rev;
+      };
+    };
+in {
   enable = true;
   viAlias = true;
   vimAlias = true;
@@ -27,9 +34,9 @@ in
       "pyright.organizeimports.provider" = "isort";
       "suggest.noselect" = true;
       "eslint.autoFixOnSave" = false;
-      "eslint.workingDirectories" = [{ "mode" = "auto"; }];
+      "eslint.workingDirectories" = [{"mode" = "auto";}];
       "eslint.packageManager" = "pnpm";
-      "yaml.customTags" = [ "!reference sequence" ];
+      "yaml.customTags" = ["!reference sequence"];
       "rust-analyzer.server.path" = "rust-analyzer";
     };
     pluginConfig = ''
@@ -143,11 +150,11 @@ in
     }
     markdown-preview-nvim
     {
-      plugin = (plugin { 
+      plugin = plugin {
         repo = "nvim-lualine/lualine.nvim";
         ref = "master";
         rev = "2248ef254d0a1488a72041cfb45ca9caada6d994";
-      });
+      };
       config = ''
         lua << EOF
         require("lualine").setup({
@@ -204,11 +211,11 @@ in
     vim-gitgutter
     lightspeed-nvim
     {
-      plugin = (plugin {
+      plugin = plugin {
         repo = "github/copilot.vim";
         ref = "release";
         rev = "309b3c803d1862d5e84c7c9c5749ae04010123b8";
-      });
+      };
       config = ''
         imap <silent><script><expr> <C-Enter> copilot#Accept("\<CR>")
         let g:copilot_no_tab_map = v:true
