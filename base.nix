@@ -114,15 +114,15 @@ in
   };
   fonts.fontconfig.enable = true;
 
-  programs.kitty = import ./kitty { inherit pkgs homeDirectory; };
+  programs.kitty = import ./kitty args;
 
-  programs.git = import ./git;
+  programs.git = import ./git args;
 
-  programs.starship = import ./starship;
+  programs.starship = import ./starship args;
 
-  programs.zsh = (import ./zsh) args;
+  programs.zsh = import ./zsh args;
 
-  programs.neovim = import ./neovim { inherit pkgs lib; };
+  programs.neovim = import ./neovim args;
 
   programs.bat = {
     enable = true;
