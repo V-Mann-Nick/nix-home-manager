@@ -111,7 +111,6 @@ in {
         suvim = "sudo nvim -u ${config.xdg.configHome}/nvim/init.lua";
         g = "git";
         sw = "home-manager switch";
-        home = "$EDITOR ${config.xdg.configHome}/home-manager/home.nix";
         pc = "podman-compose";
         "sensible-editor" = "$EDITOR";
         c = "nvim .";

@@ -24,6 +24,10 @@ with lib; let
   homeDirectory = "/home/${username}";
 
   directories = rec {
+    home = {
+      aliases = ["home"];
+      path = "${homeDirectory}/.config/home-manager";
+    };
     code = {
       aliases = ["co"];
       path = "${homeDirectory}/Code";
