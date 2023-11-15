@@ -64,14 +64,11 @@ in {
 
     sessionPath = [
       "${homeDirectory}/.local/bin"
-      "${homeDirectory}/.yarn/bin"
     ];
 
     packages = with pkgs; [
       lsd
       neofetch
-      nodejs_21
-      yarn
       podman
       podman-compose
       ripgrep
