@@ -32,6 +32,10 @@ with lib; let
       aliases = ["co"];
       path = "${homeDirectory}/Code";
     };
+    huffman = {
+      aliases = ["hu"];
+      path = "${code.path}/personal/rust/huffman";
+    };
     keycloakAdminAio = {
       aliases = ["ka"];
       path = "${code.path}/open-source/keycloak-admin-aio";
