@@ -1,10 +1,10 @@
 require("lf").setup({
-	winblend = 0,
-	border = "rounded",
-	default_file_manager = true,
-	highlights = {
-		NormalFloat = { link = "Normal" },
-	},
+    winblend = 0,
+    border = "rounded",
+    default_file_manager = true,
+    highlights = {
+        NormalFloat = { link = "Normal" },
+    },
 })
 vim.keymap.set("n", "<Space>r", "<Cmd>Lf<CR>", { nowait = true })
 -- vim.api.nvim_create_autocmd("BufEnter", {

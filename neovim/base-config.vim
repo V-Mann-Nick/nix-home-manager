@@ -34,3 +34,4 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab
 autocmd filetype py set tabstop=4 softtabstop=4 shiftwidth=4
+autocmd filetype lua set tabstop=4 softtabstop=4 shiftwidth=4
