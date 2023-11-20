@@ -1,4 +1,9 @@
-{ templateSourceVimScript, leader, ... }: {
+{
+  pkgs,
+  templateSourceVimScript,
+  leader,
+  ...
+}: {
   enable = true;
   settings = {
     "workspace.bottomUpFiletypes" = ["*"];
@@ -15,6 +20,18 @@
     "eslint.packageManager" = "pnpm";
     "yaml.customTags" = ["!reference sequence"];
     "rust-analyzer.server.path" = "rust-analyzer";
+    "languageserver" = {
+      "nix" = {
+        "command" = "${pkgs.nil}/bin/nil";
+        "filetypes" = ["nix"];
+        "rootPatterns" = ["flake.nix"];
+        "settings" = {
+          "nil" = {
+            "formatting" = {"command" = ["${pkgs.alejandra}/bin/alejandra"];};
+          };
+        };
+      };
+    };
   };
   pluginConfig = templateSourceVimScript "coc-plugin-config.vim" ./coc.vim {inherit leader;};
 }

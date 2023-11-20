@@ -47,14 +47,14 @@ args @ {
     EOF
   '';
   leader = ",";
-  context = { inherit plugin templateFile templateSourceVimScript templateSourceLua leader; } // args;
+  context = {inherit plugin templateFile templateSourceVimScript templateSourceLua leader;} // args;
 in {
   enable = true;
   viAlias = true;
   vimAlias = true;
   withNodeJs = true;
   coc = import ./coc context;
-  extraConfig = templateSourceVimScript "nvim-extra-config" ./base-config.vim { inherit leader; };
+  extraConfig = templateSourceVimScript "nvim-extra-config" ./base-config.vim {inherit leader;};
   plugins = with pkgs.vimPlugins; [
     {
       plugin = auto-pairs;

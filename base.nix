@@ -25,8 +25,7 @@ args @ {
   aliasesCdls = let
     cdls = dir: "cd ${dir} && ls";
   in
-    lib.mapAttrs (name: dir: cdls dir) aliases;
-  nullPackage = name: pkgs.writeShellScriptBin name "";
+    lib.mapAttrs (_: dir: cdls dir) aliases;
   lfcdSource = pkgs.writeText "lfcd-source" ''
     lfcdFn () {
       tmp="$(mktemp)"

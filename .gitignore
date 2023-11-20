@@ -1,1 +1,6 @@
 extension.nix
+
+.direnv/
+
+# Handled by nix
+.pre-commit-config.yaml

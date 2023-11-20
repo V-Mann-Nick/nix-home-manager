@@ -1,5 +1,6 @@
 args @ {
   lib,
+  # deadnix: skip
   pkgs,
   ...
 }:

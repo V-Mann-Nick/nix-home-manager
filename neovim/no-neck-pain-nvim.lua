@@ -1,7 +1,7 @@
 require("no-neck-pain").setup({
-  buffers = {
-    wo = {
-      fillchars = "eob: "
-    }
-  }
+	buffers = {
+		wo = {
+			fillchars = "eob: ",
+		},
+	},
 })
