@@ -104,6 +104,7 @@ in {
       speedtest-cli
       jpegoptim
       nodePackages.ts-node
+      dive
     ];
     shellAliases =
       {
