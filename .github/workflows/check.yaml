@@ -1,7 +1,8 @@
+---
 name: Check code
 on:
   push:
-    branches: 
+    branches:
       - main
 
 jobs:
