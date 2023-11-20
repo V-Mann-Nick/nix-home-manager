@@ -44,11 +44,13 @@
     window_padding_width = "8 8";
     kitty_mod = "alt";
     tab_bar_style = "powerline";
+    tab_powerline_style = "round";
     shell = "${homeDirectory}/.nix-profile/bin/zsh";
     confirm_os_window_close = "0";
     background_opacity = "0.95";
     hide_window_decorations = "yes";
     wayland_titlebar_color = "background";
+    enable_audio_bell = "no";
     # linux_display_server = "x11";
   };
   extraConfig = ''
