@@ -110,11 +110,6 @@ in {
       };
       config = templateSourceLua "lf-nvim-config" ./lf-nvim.lua {};
     }
-    (plugin {
-      repo = "wuelnerdotexe/vim-astro";
-      ref = "main";
-      rev = "9b4674ecfe1dd84b5fb9b4de1653975de6e8e2e1";
-    })
     {
       plugin = plugin {
         repo = "V-Mann-Nick/zen-mode.nvim";
