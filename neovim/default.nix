@@ -94,7 +94,7 @@ in {
       plugin = plugin {
         repo = "github/copilot.vim";
         ref = "release";
-        rev = "309b3c803d1862d5e84c7c9c5749ae04010123b8";
+        rev = "2c31989063b145830d5f0bea8ab529d2aef2427b";
       };
       config = templateSourceVimScript "copilot-vim-config" ./copilot-vim.vim {};
     }
@@ -125,11 +125,7 @@ in {
     }
     plenary-nvim
     {
-      plugin = plugin {
-        repo = "willothy/nvim-cokeline";
-        ref = "main";
-        rev = "2e71292a37535fdbcf0f9500aeb141021d90af8b";
-      };
+      plugin = nvim-cokeline;
       config = templateSourceLua "nvim-cokeline-config" ./nvim-cokeline.lua {};
     }
     # {
