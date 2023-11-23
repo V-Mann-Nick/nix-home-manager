@@ -116,8 +116,12 @@ in {
       rev = "9b4674ecfe1dd84b5fb9b4de1653975de6e8e2e1";
     })
     {
-      plugin = no-neck-pain-nvim;
-      config = templateSourceLua "no-neck-pain-nvim-config" ./no-neck-pain-nvim.lua {};
+      plugin = plugin {
+        repo = "V-Mann-Nick/zen-mode.nvim";
+        ref = "show-tabline";
+        rev = "7517af227efbeb424f59afba77b82a9dafaf11f9";
+      };
+      config = templateSourceLua "zen-mode-nvim-config" ./zen-mode-nvim.lua {};
     }
     plenary-nvim
     {
