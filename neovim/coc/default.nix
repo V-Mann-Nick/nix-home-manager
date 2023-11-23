@@ -31,6 +31,11 @@
           };
         };
       };
+      # nixd = {
+      #   command = "${pkgs.nixd}/bin/nixd";
+      #   rootPatterns = [".nixd.json"];
+      #   filetypes = ["nix"];
+      # };
     };
   };
   pluginConfig = templateSourceVimScript "coc-plugin-config.vim" ./coc.vim {inherit leader;};
