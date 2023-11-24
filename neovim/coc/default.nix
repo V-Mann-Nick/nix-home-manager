@@ -2,9 +2,15 @@
   pkgs,
   templateSourceVimScript,
   leader,
+  plugin,
   ...
 }: {
   enable = true;
+  package = plugin {
+    repo = "V-Mann-Nick/coc.nvim";
+    ref = "release";
+    rev = "e863929826ad667db95e8ec93ddcf2d33bdba77e";
+  };
   settings = {
     "workspace.bottomUpFiletypes" = ["*"];
     "workspace.workspaceFolderCheckCwd" = false;
@@ -20,6 +26,7 @@
     "eslint.packageManager" = "pnpm";
     "yaml.customTags" = ["!reference sequence"];
     "rust-analyzer.server.path" = "rust-analyzer";
+    "dialog.rounded" = true;
     "languageserver" = {
       "nix" = {
         "command" = "${pkgs.nil}/bin/nil";
