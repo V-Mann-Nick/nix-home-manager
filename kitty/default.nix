@@ -12,7 +12,6 @@
     name = "MonoLisa";
     size = 12;
   };
-  theme = "One Dark";
   keybindings = {
     "kitty_mod+t" = "new_tab";
     "kitty_mod+j" = "next_window";
@@ -47,60 +46,58 @@
     tab_powerline_style = "round";
     shell = "${homeDirectory}/.nix-profile/bin/zsh";
     confirm_os_window_close = "0";
-    background_opacity = "0.95";
+    background_opacity = "0.85";
     hide_window_decorations = "yes";
     wayland_titlebar_color = "background";
     enable_audio_bell = "no";
+    placement_strategy = "top-left";
     # linux_display_server = "x11";
-  };
-  extraConfig = ''
-    # Nightfox colors for Kitty
-    background #2e3440
-    foreground #cdcecf
-    selection_background #3e4a5b
-    selection_foreground #cdcecf
-    url_color #a3be8c
 
-    # Cursor
-    # uncomment for reverse background
-    # cursor none
-    cursor #cdcecf
+    # Nightfox (Nordfox) colors for Kitty
+    background = "#2e3440";
+    foreground = "#cdcecf";
+    selection_background = "#3e4a5b";
+    selection_foreground = "#cdcecf";
+    cursor_text_color = "#2e3440";
+    url_color = "#a3be8c";
+    cursor = "#cdcecf";
 
     # Border
-    active_border_color #81a1c1
-    inactive_border_color #5a657d
-    bell_border_color #c9826b
+    active_border_color = "#81a1c1";
+    inactive_border_color = "#5a657d";
+    bell_border_color = "#c9826b";
 
     # Tabs
-    active_tab_background #81a1c1
-    active_tab_foreground #232831
-    inactive_tab_background #3e4a5b
-    inactive_tab_foreground #60728a
+    active_tab_background = "#81a1c1";
+    active_tab_foreground = "#232831";
+    inactive_tab_background = "#3e4a5b";
+    inactive_tab_foreground = "#60728a";
 
     # normal
-    color0 #3b4252
-    color1 #bf616a
-    color2 #a3be8c
-    color3 #ebcb8b
-    color4 #81a1c1
-    color5 #b48ead
-    color6 #88c0d0
-    color7 #e5e9f0
+    color0 = "#3b4252";
+    color1 = "#bf616a";
+    color2 = "#a3be8c";
+    color3 = "#ebcb8b";
+    color4 = "#81a1c1";
+    color5 = "#b48ead";
+    color6 = "#88c0d0";
+    color7 = "#e5e9f0";
 
     # bright
-    color8 #465780
-    color9 #d06f79
-    color10 #b1d196
-    color11 #f0d399
-    color12 #8cafd2
-    color13 #c895bf
-    color14 #93ccdc
-    color15 #e7ecf4
+    color8 = "#465780";
+    color9 = "#d06f79";
+    color10 = "#b1d196";
+    color11 = "#f0d399";
+    color12 = "#8cafd2";
+    color13 = "#c895bf";
+    color14 = "#93ccdc";
+    color15 = "#e7ecf4";
 
     # extended colors
-    color16 #c9826b
-    color17 #bf88bc
-
-    symbol_map U+23FB-U+23FE,U+2665,U+26A1,U+2B58,U+E000-U+E00A,U+E0A0-U+E0A3,U+E0B0-U+E0C8,U+E0CA,U+E0CC-U+E0D2,U+E0D4,U+E200-U+E2A9,U+E300-U+E3E3,U+E5FA-U+E634,U+E700-U+E7C5,U+EA60-U+EBEB,U+F000-U+F2E0,U+F300-U+F32F,U+F400-U+F4A9,U+F500-U+F8FF Symbols Nerd Font Mono
-  '';
+    color16 = "#c9826b";
+    color17 = "#bf88bc";
+    symbol_map = ''
+      U+23FB-U+23FE,U+2665,U+26A1,U+2B58,U+E000-U+E00A,U+E0A0-U+E0A3,U+E0B0-U+E0C8,U+E0CA,U+E0CC-U+E0D2,U+E0D4,U+E200-U+E2A9,U+E300-U+E3E3,U+E5FA-U+E634,U+E700-U+E7C5,U+EA60-U+EBEB,U+F000-U+F2E0,U+F300-U+F32F,U+F400-U+F4A9,U+F500-U+F8FF Symbols Nerd Font Mono
+    '';
+  };
 }
