@@ -122,6 +122,9 @@ in {
         kitty = "__EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json /usr/bin/kitty";
         envycontrol = "sudo python ${directories.code.path}/open-source/envycontrol/envycontrol.py";
         p = "sudo pacman";
+        nvim = "${pkgs.writeShellScript "nvim-kitty-spacing" ''
+          kitty @ set-spacing padding=0 && nvim $@ && kitty @ set-spacing padding=8
+        ''}";
       }
       // aliasesCdls;
   };
