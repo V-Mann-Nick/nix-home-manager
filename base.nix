@@ -126,8 +126,6 @@ in {
       // aliasesCdls;
   };
 
-  fonts.fontconfig.enable = true;
-
   programs.kitty = import ./kitty context;
 
   programs.git = import ./git context;
