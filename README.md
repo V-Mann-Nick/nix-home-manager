@@ -11,3 +11,11 @@ It features the following major components:
 - *many other tools used for development…*
 
 ***Disclaimer: This is my personal configuration and without major changes this is not properly usable for somebody else.***
+
+## Screenshots
+
+![Screenshot bonasi](./screenshots/bonsai.png)
+
+![Screenshot neovim](./screenshots/neovim.png)
+
+![Screenshot shell](./screenshots/shell.png)
