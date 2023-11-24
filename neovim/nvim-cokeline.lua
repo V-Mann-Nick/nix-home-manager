@@ -28,6 +28,10 @@ require("cokeline").setup({
     },
     components = {
         {
+            text = " ",
+            bg = get_hl_attr("TabLineFill", "bg"),
+        },
+        {
             text = "",
             fg = function(buffer)
                 return buffer.is_focused and get_hl_attr("Normal", "fg") or get_hl_attr("TabLineFill", "bg")
