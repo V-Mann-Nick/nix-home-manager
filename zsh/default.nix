@@ -1,7 +1,7 @@
 {config, ...}: {
   enable = true;
   enableAutosuggestions = false;
-  syntaxHighlighting.enable = false;
+  syntaxHighlighting.enable = true;
   enableCompletion = false;
   history.extended = true;
   dotDir = ".config/zsh";
@@ -11,7 +11,7 @@
   prezto = {
     enable = true;
     pmodules = [
-      "syntax-highlighting"
+      # "syntax-highlighting"
       "history-substring-search"
       "autosuggestions"
       "environment"
