@@ -89,7 +89,6 @@ in {
       nomad
       vscode
       scc
-      python310Packages.ipython
       terraform
       nomad-pack
       go
