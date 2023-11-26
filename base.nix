@@ -104,6 +104,7 @@ in {
       jpegoptim
       nodePackages.ts-node
       dive
+      gh
     ];
     shellAliases =
       {
