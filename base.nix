@@ -41,7 +41,28 @@ args @ {
       fi
     }
   '';
-  context = args // {inherit aliases;};
+  templateFile = name: template: data:
+    with pkgs;
+      stdenv.mkDerivation {
+        name = "${name}";
+        nativeBuildInpts = [mustache-go];
+        passAsFile = ["jsonData"];
+        jsonData = builtins.toJSON data;
+        phases = ["buildPhase" "installPhase"];
+        buildPhase = ''
+          ${mustache-go}/bin/mustache $jsonDataPath ${template} > rendered_file
+        '';
+        installPhase = ''
+          mkdir -p $out
+          cp rendered_file $out/${name}
+        '';
+      };
+  context =
+    args
+    // {
+      inherit aliases;
+      inherit templateFile;
+    };
 in {
   nixpkgs.config = {
     allowUnfree = true;
