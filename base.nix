@@ -148,6 +148,12 @@ in {
         ''}";
       }
       // aliasesCdls;
+
+    file.poetry = {
+      enable = true;
+      target = "${config.xdg.configHome}/pypoetry/config.toml";
+      text = builtins.readFile ./dotfiles/poetry-config.toml;
+    };
   };
 
   programs.kitty = import ./kitty context;
