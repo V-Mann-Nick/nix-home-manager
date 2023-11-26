@@ -188,11 +188,7 @@ in {
     };
   };
 
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
-    nix-direnv.enable = true;
-  };
+  programs.direnv = import ./direnv context;
 
   programs.home-manager.enable = true;
 }
