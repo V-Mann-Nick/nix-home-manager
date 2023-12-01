@@ -54,10 +54,6 @@ in {
     colorizer
     vim-fugitive
     gv-vim
-    {
-      plugin = fzf-vim;
-      config = templateSourceVimScript "fzf-vim-config" ./fzf-vim.vim {};
-    }
     vim-polyglot
     markdown-preview-nvim
     {
@@ -107,6 +103,11 @@ in {
     {
       plugin = nvim-cokeline;
       config = templateSourceLua "nvim-cokeline-config" ./nvim-cokeline.lua {};
+    }
+    telescope-fzf-native-nvim
+    {
+      plugin = telescope-nvim;
+      config = templateSourceLua "telescope-nvim-config" ./telescope-nvim.lua {};
     }
     # {
     #   plugin = barbar-nvim;
@@ -158,20 +159,11 @@ in {
     #   plugin = nvim-tree-lua;
     #   config = ''
     #     lua << EOF
-    #     require("nvim-tree").setup({
-    #       diagnostics = {
-    #         enable = true,
-    #         icons = {
-    #           hint = "",
-    #           info = "",
-    #           warning = "",
-    #           error = "",
-    #         }
-    #       },
-    #       git = {
-    #         enable = false
-    #       }
-    #     })
+    #     vim.g.loaded_netrw = 1
+    #     vim.g.loaded_netrwPlugin = 1
+    #
+    #     require("nvim-tree").setup()
+    #     vim.keymap.set("n", "<Space>e", ":NvimTreeClose<Enter>:G<Enter>", { silent = true })
     #     EOF
     #   '';
     # }
@@ -189,6 +181,10 @@ in {
     #     nmap <leader>vi <Plug>VimspectorBalloonEval
     #     xmap <leader>vi <Plug>VimspectorBalloonEvallet g:vimspector_install_gadgets = [ 'debugpy', 'vscode-node-debug2']
     #   '';
+    # }
+    # {
+    #   plugin = fzf-vim;
+    #   config = templateSourceVimScript "fzf-vim-config" ./fzf-vim.vim {};
     # }
   ];
 }
