@@ -49,6 +49,10 @@ with lib; let
       aliases = ["por"];
       path = "${code.path}/personal/webdev/portfolio";
     };
+    jsonParser = {
+      aliases = ["jp"];
+      path = "${code.path}/personal/rust/json-parser";
+    };
   };
 
   extension =
