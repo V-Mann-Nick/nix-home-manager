@@ -125,6 +125,7 @@ in {
       nodePackages.ts-node
       dive
       gh
+      python311Packages.ipython
     ];
     shellAliases =
       {
