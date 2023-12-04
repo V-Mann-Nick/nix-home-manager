@@ -4,3 +4,6 @@ extension.nix
 
 # Handled by nix
 .pre-commit-config.yaml
+
+# Not allowed to make this public
+mono-lisa/

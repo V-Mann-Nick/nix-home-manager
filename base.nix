@@ -57,11 +57,14 @@ args @ {
           cp rendered_file $out/${name}
         '';
       };
+  monoLisaPath = ./mono-lisa;
+  hasMonoLisa = lib.pathExists monoLisaPath;
   context =
     args
     // {
       inherit aliases;
       inherit templateFile;
+      inherit hasMonoLisa;
     };
 in {
   nixpkgs.config = {
@@ -154,6 +157,14 @@ in {
       enable = true;
       target = "${config.xdg.configHome}/pypoetry/config.toml";
       text = builtins.readFile ./dotfiles/poetry-config.toml;
+    };
+
+    file.monoLisa = {
+      enable = hasMonoLisa;
+      recursive = true;
+      source = monoLisaPath;
+      target = "${config.xdg.dataHome}/fonts/MonoLisa";
+      onChange = "fc-cache -f -v";
     };
   };
 

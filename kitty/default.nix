@@ -1,6 +1,7 @@
 {
   pkgs,
   homeDirectory,
+  hasMonoLisa,
   ...
 }: {
   enable = true;
@@ -8,10 +9,13 @@
     #!/bin/sh
     __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json /usr/bin/kitty
   '';
-  font = {
-    name = "MonoLisa";
-    size = 12;
-  };
+  font =
+    if hasMonoLisa
+    then {
+      name = "MonoLisa";
+      size = 12;
+    }
+    else null;
   keybindings = {
     "kitty_mod+t" = "new_tab";
     "kitty_mod+j" = "next_window";
