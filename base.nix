@@ -90,7 +90,6 @@ in {
     ];
 
     packages = with pkgs; [
-      lsd
       neofetch
       podman
       podman-compose
@@ -132,7 +131,6 @@ in {
     ];
     shellAliases =
       {
-        ls = "lsd -la";
         suvim = "sudo nvim -u ${config.xdg.configHome}/nvim/init.lua";
         g = "git";
         sw = "home-manager switch";
@@ -186,6 +184,11 @@ in {
       theme = "Nord";
       color = "always";
     };
+  };
+
+  programs.lsd = {
+    enable = true;
+    enableAliases = true;
   };
 
   programs.pyenv = {
