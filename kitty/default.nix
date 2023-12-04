@@ -5,6 +5,7 @@
   ...
 }: {
   enable = true;
+  shellIntegration.enableZshIntegration = true;
   package = pkgs.writeScriptBin "kittyFast" ''
     #!/bin/sh
     __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json /usr/bin/kitty
