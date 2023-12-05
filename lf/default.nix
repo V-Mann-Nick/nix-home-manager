@@ -1,7 +1,7 @@
 {
   pkgs,
   lib,
-  aliases,
+  config,
   ...
 }: let
   bashShebang = "#!${pkgs.bash}/bin/bash";
@@ -72,31 +72,51 @@
       name = "g${alias}";
       value = "cd ${path}";
     })
-    aliases);
+    config._module.args.aliases);
   package = pkgs.writeScriptBin "lf" ''
     ${bashShebang}
     LF_ICONS="${iconEnvVar}" ${lf} "$@"
   '';
-in {
-  enable = true;
-  package = package;
-  settings = {
-    drawbox = true;
-    icons = true;
-  };
-  keybindings =
-    {
-      "D" = ''
-        $IFS=''\"$(printf ''\'''\\n''\\t''\')''\"; ${pkgs.trash-cli}/bin/trash-put -- $fx
-      '';
-      "C" = "push $touch<space>";
-      "M" = "push $mkdir<space>";
-      "<backspace>" = "set hidden!";
-      "<backspace2>" = "set hidden!";
+  lfcdSource = pkgs.writeText "lfcd-source" ''
+    lfcdFn () {
+      tmp="$(mktemp)"
+      lf -last-dir-path="$tmp" "$@"
+      if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        if [ -d "$dir" ]; then
+          if [ "$dir" != "$(pwd)" ]; then
+            cd "$dir"
+          fi
+        fi
+      fi
     }
-    // aliasesCd;
-  extraConfig = ''
-    set previewer ${previewer}
-    set cleaner ${cleaner}
   '';
+in {
+  home.shellAliases = {
+    l = "source ${lfcdSource} && lfcdFn";
+  };
+  programs.lf = {
+    enable = true;
+    package = package;
+    settings = {
+      drawbox = true;
+      icons = true;
+    };
+    keybindings =
+      {
+        "D" = ''
+          $IFS=''\"$(printf ''\'''\\n''\\t''\')''\"; ${pkgs.trash-cli}/bin/trash-put -- $fx
+        '';
+        "C" = "push $touch<space>";
+        "M" = "push $mkdir<space>";
+        "<backspace>" = "set hidden!";
+        "<backspace2>" = "set hidden!";
+      }
+      // aliasesCd;
+    extraConfig = ''
+      set previewer ${previewer}
+      set cleaner ${cleaner}
+    '';
+  };
 }

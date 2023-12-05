@@ -26,21 +26,6 @@ args @ {
     cdls = dir: "cd ${dir} && ls";
   in
     lib.mapAttrs (_: dir: cdls dir) aliases;
-  lfcdSource = pkgs.writeText "lfcd-source" ''
-    lfcdFn () {
-      tmp="$(mktemp)"
-      lf -last-dir-path="$tmp" "$@"
-      if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        rm -f "$tmp"
-        if [ -d "$dir" ]; then
-          if [ "$dir" != "$(pwd)" ]; then
-            cd "$dir"
-          fi
-        fi
-      fi
-    }
-  '';
   templateFile = name: template: data:
     with pkgs;
       stdenv.mkDerivation {
@@ -62,11 +47,16 @@ args @ {
   context =
     args
     // {
-      inherit aliases;
       inherit templateFile;
       inherit hasMonoLisa;
     };
 in {
+  _module.args = {
+    inherit aliases;
+  };
+
+  imports = [./lf];
+
   nixpkgs.config = {
     allowUnfree = true;
   };
@@ -140,7 +130,6 @@ in {
         py = "poetry";
         ipv = "ipython --TerminalInteractiveShell.editing_mode=vi";
         n = "pnpm";
-        l = "source ${lfcdSource} && lfcdFn";
         D = "trash-put";
         kitty = "__EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json /usr/bin/kitty";
         envycontrol = "sudo python ${directories.code.path}/open-source/envycontrol/envycontrol.py";
@@ -175,8 +164,6 @@ in {
   programs.zsh = import ./zsh context;
 
   programs.neovim = import ./neovim context;
-
-  programs.lf = import ./lf context;
 
   programs.bat = {
     enable = true;
