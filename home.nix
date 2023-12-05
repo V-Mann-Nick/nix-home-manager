@@ -1,70 +1,134 @@
-args @ {
-  lib,
-  # deadnix: skip
+{
+  config,
   pkgs,
+  lib,
   ...
-}:
-with lib; let
-  # https://stackoverflow.com/a/54505212/15782961
-  recursiveMerge = attrList: let
-    f = attrPath:
-      zipAttrsWith (
-        n: values:
-          if tail values == []
-          then head values
-          else if all isList values
-          then unique (concatLists values)
-          else if all isAttrs values
-          then f (attrPath ++ [n]) values
-          else last values
-      );
-  in
-    f [] attrList;
+}: {
+  imports =
+    [
+      ./lf
+      ./direnv
+      ./favorite-dirs.nix
+      ./lib.nix
+      ./mono-lisa
+      ./kitty
+      ./git
+      ./starship
+      ./zsh
+      ./neovim
+    ]
+    ++ (
+      if lib.pathExists ./extension.nix
+      then [./extension.nix]
+      else []
+    );
 
-  username = "nicklas";
-  homeDirectory = "/home/${username}";
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
 
-  directories = rec {
-    home = {
-      aliases = ["home"];
-      path = "${homeDirectory}/.config/home-manager";
+  home = rec {
+    username = "nicklas";
+    homeDirectory = "/home/${username}";
+    stateVersion = "23.11";
+
+    sessionVariables = {
+      TERMINAL = "kitty";
+      BROWSER = "firefox";
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+
+      # Podman auth
+      REGISTRY_AUTH_FILE = "${config.xdg.configHome}/containers/auth.json";
     };
-    code = {
-      aliases = ["co"];
-      path = "${homeDirectory}/Code";
+
+    sessionPath = [
+      "${homeDirectory}/.local/bin"
+    ];
+
+    packages = with pkgs; [
+      neofetch
+      podman
+      podman-compose
+      ripgrep
+      fzf
+      postgresql
+      xclip
+      htop
+      trash-cli
+      flameshot
+      jq
+      nomad
+      shellcheck
+      watchman
+      cbonsai
+      viu
+      imagemagick
+      consul
+      vault
+      nomad
+      vscode
+      scc
+      terraform
+      nomad-pack
+      go
+      nixpkgs-fmt
+      cpio
+      gitleaks
+      bfg-repo-cleaner
+      glab
+      exif
+      qpdf
+      speedtest-cli
+      jpegoptim
+      nodePackages.ts-node
+      dive
+      gh
+      python311Packages.ipython
+    ];
+    shellAliases = {
+      sw = "home-manager switch";
+      pc = "podman-compose";
+      "sensible-editor" = "$EDITOR";
+      c = "nvim .";
+      py = "poetry";
+      ipv = "ipython --TerminalInteractiveShell.editing_mode=vi";
+      n = "pnpm";
+      D = "trash-put";
+      p = "sudo pacman";
     };
-    huffman = {
-      aliases = ["hu"];
-      path = "${code.path}/personal/rust/huffman";
-    };
-    keycloakAdminAio = {
-      aliases = ["ka"];
-      path = "${code.path}/open-source/keycloak-admin-aio";
-    };
-    nix = {
-      aliases = ["ni"];
-      path = "${code.path}/personal/rust/nix";
-    };
-    portfolio = {
-      aliases = ["por"];
-      path = "${code.path}/personal/webdev/portfolio";
-    };
-    jsonParser = {
-      aliases = ["jp"];
-      path = "${code.path}/personal/rust/json-parser";
+
+    file.poetry = {
+      enable = true;
+      target = "${config.xdg.configHome}/pypoetry/config.toml";
+      text = builtins.readFile ./dotfiles/poetry-config.toml;
     };
   };
 
-  extension =
-    if pathExists ./extension.nix
-    then (import ./extension.nix) (args // {inherit directories;})
-    else {};
-  allDirectories = directories // (extension.directories or {});
+  programs.bat = {
+    enable = true;
+    config = {
+      theme = "Nord";
+      color = "always";
+    };
+  };
 
-  base = (import ./base.nix) (args
-    // {
-      inherit username homeDirectory;
-      directories = allDirectories;
-    });
-in
-  recursiveMerge [base (extension.homeManagerConfig or {})]
+  programs.lsd = {
+    enable = true;
+    enableAliases = true;
+  };
+
+  programs.pyenv = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.zathura = {
+    enable = true;
+    options = {
+      selection-clipboard = "clipboard";
+    };
+  };
+
+  programs.home-manager.enable = true;
+}

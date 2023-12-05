@@ -1,4 +1,5 @@
 extension.nix
+extension-dirs.nix
 
 .direnv/
 
@@ -6,4 +7,4 @@ extension.nix
 .pre-commit-config.yaml
 
 # Not allowed to make this public
-mono-lisa/
+mono-lisa/ttf/
