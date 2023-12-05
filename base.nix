@@ -55,7 +55,7 @@ in {
     inherit aliases;
   };
 
-  imports = [./lf];
+  imports = [./lf ./direnv];
 
   nixpkgs.config = {
     allowUnfree = true;
@@ -189,8 +189,6 @@ in {
       selection-clipboard = "clipboard";
     };
   };
-
-  programs.direnv = import ./direnv context;
 
   programs.home-manager.enable = true;
 }
