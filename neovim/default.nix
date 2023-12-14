@@ -73,7 +73,10 @@ in {
         plugin = vim-smoothie;
         config = templateSourceVimScript "vim-smoothie-config" ./vim-smoothie.vim {};
       }
-      vim-surround
+      {
+        plugin = nvim-surround;
+        config = templateSourceLua "nvim-surround-config" ./nvim-surround.lua {};
+      }
       tcomment_vim
       colorizer
       vim-fugitive
@@ -191,7 +194,6 @@ in {
       #     EOF
       #   '';
       # }
-      # Required for cokeline
       # {
       #   plugin = vimspector;
       #   config = ''
