@@ -126,11 +126,16 @@ require("cokeline").setup({
         },
     },
 })
+
 vim.keymap.set("n", "<Space>,", "<Plug>(cokeline-focus-prev)", { silent = true })
 vim.keymap.set("n", "<Space>.", "<Plug>(cokeline-focus-next)", { silent = true })
 vim.keymap.set("n", "<Space><", "<Plug>(cokeline-switch-prev)", { silent = true })
 vim.keymap.set("n", "<Space>>", "<Plug>(cokeline-switch-next)", { silent = true })
 vim.keymap.set("n", "<Space>w", ":bdelete<Enter>", { silent = true })
+-- vim.keymap.set("n", "<Space>w", function ()
+--     local current_buffer = vim.api.nvim_get_current_buf()
+--     require("cokeline.utils").buf_delete(current_buffer)
+-- end, { silent = true })
 for i = 1, 9 do
     vim.keymap.set("n", ("<Space>%s"):format(i), ("<Plug>(cokeline-focus-%s)"):format(i), { silent = true })
 end
