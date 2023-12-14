@@ -38,6 +38,7 @@
       "kitty_mod+." = "next_tab";
       "kitty_mod+shift+," = "move_tab_backward";
       "kitty_mod+shift+." = "move_tab_forward";
+      "kitty_mod+enter" = "new_window_with_cwd";
       "kitty_mod+shift+enter" = "move_window_to_top";
       "kitty_mod+shift+k" = "move_window_backward";
       "kitty_mod+shift+j" = "move_window_forward";
