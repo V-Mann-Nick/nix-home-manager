@@ -30,6 +30,7 @@
     local current_path = package.path
     package.path = current_path .. ";${helpers.templateFile fileName template data}/?.lua"
     require("${name}")
+    package.path = current_path
     EOF
   '';
   leader = ",";
