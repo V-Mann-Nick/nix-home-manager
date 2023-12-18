@@ -16,6 +16,7 @@
       ./starship
       ./zsh
       ./neovim
+      ./keyboard
     ]
     ++ (
       if lib.pathExists ./extension.nix
