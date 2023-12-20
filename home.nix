@@ -17,6 +17,7 @@
       ./zsh
       ./neovim
       ./keyboard
+      ./gnome-theme
     ]
     ++ (
       if lib.pathExists ./extension.nix
