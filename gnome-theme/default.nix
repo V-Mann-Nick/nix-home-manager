@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  theme,
   ...
 }: let
   # Overlay nixpkgs.gradience to get newer version supporting shell theming
@@ -30,7 +31,7 @@
   '';
   gradienceBuild = pkgs.stdenv.mkDerivation {
     name = "gradience-build";
-    preset = builtins.toJSON (import ./nord-preset.nix);
+    preset = builtins.toJSON theme.gnome;
     passAsFile = ["preset"];
     phases = ["buildPhase" "installPhase"];
     nativeBuildInputs = [gnomeShellStub];
@@ -49,6 +50,7 @@
     '';
   };
 in {
+  home.packages = [gradiencePkgs.gradience];
   home.file = {
     gtk3 = {
       enable = true;

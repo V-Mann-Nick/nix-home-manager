@@ -3,6 +3,7 @@
   lib,
   helpers,
   config,
+  theme,
   ...
 }: let
   plugin = {
@@ -89,10 +90,7 @@ in {
         config = templateSourceLua "lualine-nvim-config" ./lualine-nvim.lua {};
       }
       nvim-web-devicons
-      {
-        plugin = nightfox-nvim;
-        config = templateSourceLua "nightfox-nvim-config" ./nightfox-nvim.lua {};
-      }
+      theme.neovim
       {
         plugin = nvim-treesitter.withAllGrammars;
         config = templateSourceLua "nvim-treesitter-config" ./nvim-treesitter.lua {};

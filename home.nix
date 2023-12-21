@@ -18,6 +18,7 @@
       ./neovim
       ./keyboard
       ./gnome-theme
+      ./theme
     ]
     ++ (
       if lib.pathExists ./extension.nix
