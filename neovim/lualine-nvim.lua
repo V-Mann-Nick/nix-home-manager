@@ -1,6 +1,6 @@
 require("lualine").setup({
     options = {
-        theme = "nordfox",
+        theme = "{{theme}}",
         extensions = { "fzf", "nvim-tree", "fugitive" },
         globalstatus = true,
         section_separators = { left = "", right = "" },

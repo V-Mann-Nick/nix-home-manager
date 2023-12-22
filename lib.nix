@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   _module.args = {
-    helpers = {
+    helpers = rec {
       templateFile = name: template: data:
         with pkgs;
           stdenv.mkDerivation {
@@ -17,6 +17,21 @@
               cp rendered_file $out/${name}
             '';
           };
+      templateSourceVimScript = name: template: data: let
+        fileName = "${name}.vim";
+      in ''
+        source ${templateFile fileName template data}/${fileName}
+      '';
+      templateSourceLua = name: template: data: let
+        fileName = "${name}.lua";
+      in ''
+        lua << EOF
+        local current_path = package.path
+        package.path = current_path .. ";${templateFile fileName template data}/?.lua"
+        require("${name}")
+        package.path = current_path
+        EOF
+      '';
     };
   };
 }

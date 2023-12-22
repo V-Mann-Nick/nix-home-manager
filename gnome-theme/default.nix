@@ -50,7 +50,6 @@
     '';
   };
 in {
-  home.packages = [gradiencePkgs.gradience];
   home.file = {
     gtk3 = {
       enable = true;

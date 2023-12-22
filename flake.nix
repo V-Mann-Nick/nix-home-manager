@@ -7,6 +7,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur.url = "github:nix-community/NUR";
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,6 +19,7 @@
     nixpkgs,
     home-manager,
     pre-commit-hooks,
+    nur,
     ...
   }: let
     system = "x86_64-linux";
@@ -25,7 +27,10 @@
   in {
     homeConfigurations."nicklas" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = [./home.nix];
+      modules = [
+        ./home.nix
+        nur.hmModules.nur
+      ];
     };
     formatter.${system} = pkgs.writeScriptBin "home-manager-fmt" ''
       ${pkgs.pre-commit}/bin/pre-commit run --all-files

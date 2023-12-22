@@ -1,6 +1,7 @@
 {
   pkgs,
   neovim,
+  helpers,
   ...
 }: {
   programs.neovim.coc = {
@@ -44,6 +45,6 @@
         # };
       };
     };
-    pluginConfig = neovim.templateSourceVimScript "coc-plugin-config.vim" ./coc.vim {leader = neovim.leader;};
+    pluginConfig = helpers.templateSourceVimScript "coc-plugin-config.vim" ./coc.vim {leader = neovim.leader;};
   };
 }

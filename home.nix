@@ -19,6 +19,7 @@
       ./keyboard
       ./gnome-theme
       ./theme
+      ./firefox
     ]
     ++ (
       if lib.pathExists ./extension.nix

@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  helpers,
+  ...
+}: let
   theme = {
     gnome = {
       name = "Nord Dark";
@@ -117,29 +121,11 @@
       plugins = {};
     };
     neovim = {
-      plugin = pkgs.vimPlugins.nightfox-nvim;
-      config = ''
-        lua << EOF
-        require("nightfox").setup({
-            options = {
-                styles = {
-                    types = "NONE",
-                    numbers = "NONE",
-                    strings = "NONE",
-                    comments = "italic",
-                    keywords = "bold,italic",
-                    constants = "NONE",
-                    functions = "italic",
-                    operators = "NONE",
-                    variables = "NONE",
-                    conditionals = "italic",
-                    virtual_text = "NONE",
-                },
-            },
-        })
-        vim.cmd("colorscheme nordfox")
-        EOF
-      '';
+      lualine = "nordfox";
+      theme = {
+        plugin = pkgs.vimPlugins.nightfox-nvim;
+        config = helpers.templateSourceLua "nightfox-nvim-config" ./nightfox-nvim.lua {};
+      };
     };
     # Nightfox (Nordfox) colors for Kitty
     kitty = {

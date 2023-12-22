@@ -1,3 +1,3 @@
 {...}: {
-  imports = [./theme.nix];
+  imports = [./catppuccin-macchiato];
 }

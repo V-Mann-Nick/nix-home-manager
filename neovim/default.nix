@@ -19,21 +19,6 @@
         inherit ref rev;
       };
     };
-  templateSourceVimScript = name: template: data: let
-    fileName = "${name}.vim";
-  in ''
-    source ${helpers.templateFile fileName template data}/${fileName}
-  '';
-  templateSourceLua = name: template: data: let
-    fileName = "${name}.lua";
-  in ''
-    lua << EOF
-    local current_path = package.path
-    package.path = current_path .. ";${helpers.templateFile fileName template data}/?.lua"
-    require("${name}")
-    package.path = current_path
-    EOF
-  '';
   leader = ",";
 in {
   imports = [./coc];
@@ -42,7 +27,6 @@ in {
     neovim = {
       inherit leader;
       inherit plugin;
-      inherit templateSourceVimScript;
     };
   };
 
@@ -65,19 +49,19 @@ in {
     viAlias = true;
     vimAlias = true;
     withNodeJs = true;
-    extraConfig = templateSourceVimScript "nvim-extra-config" ./base-config.vim {inherit leader;};
+    extraConfig = helpers.templateSourceVimScript "nvim-extra-config" ./base-config.vim {inherit leader;};
     plugins = with pkgs.vimPlugins; [
       {
         plugin = auto-pairs;
-        config = templateSourceVimScript "auto-pairs-config" ./auto-pairs.vim {};
+        config = helpers.templateSourceVimScript "auto-pairs-config" ./auto-pairs.vim {};
       }
       {
         plugin = vim-smoothie;
-        config = templateSourceVimScript "vim-smoothie-config" ./vim-smoothie.vim {};
+        config = helpers.templateSourceVimScript "vim-smoothie-config" ./vim-smoothie.vim {};
       }
       {
         plugin = nvim-surround;
-        config = templateSourceLua "nvim-surround-config" ./nvim-surround.lua {};
+        config = helpers.templateSourceLua "nvim-surround-config" ./nvim-surround.lua {};
       }
       tcomment_vim
       colorizer
@@ -85,15 +69,15 @@ in {
       gv-vim
       vim-polyglot
       markdown-preview-nvim
+      theme.neovim.theme
       {
         plugin = lualine-nvim;
-        config = templateSourceLua "lualine-nvim-config" ./lualine-nvim.lua {};
+        config = helpers.templateSourceLua "lualine-nvim-config" ./lualine-nvim.lua {theme = theme.neovim.lualine;};
       }
       nvim-web-devicons
-      theme.neovim
       {
         plugin = nvim-treesitter.withAllGrammars;
-        config = templateSourceLua "nvim-treesitter-config" ./nvim-treesitter.lua {};
+        config = helpers.templateSourceLua "nvim-treesitter-config" ./nvim-treesitter.lua {};
       }
       vim-gitgutter
       lightspeed-nvim
@@ -103,11 +87,11 @@ in {
           ref = "release";
           rev = "2c31989063b145830d5f0bea8ab529d2aef2427b";
         };
-        config = templateSourceVimScript "copilot-vim-config" ./copilot-vim.vim {};
+        config = helpers.templateSourceVimScript "copilot-vim-config" ./copilot-vim.vim {};
       }
       {
         plugin = toggleterm-nvim;
-        config = templateSourceLua "toggleterm-nvim-config" ./toggleterm-nvim.lua {};
+        config = helpers.templateSourceLua "toggleterm-nvim-config" ./toggleterm-nvim.lua {};
       }
       {
         plugin = plugin {
@@ -115,7 +99,7 @@ in {
           ref = "master";
           rev = "69ab1efcffee6928bf68ac9bd0c016464d9b2c8b";
         };
-        config = templateSourceLua "lf-nvim-config" ./lf-nvim.lua {};
+        config = helpers.templateSourceLua "lf-nvim-config" ./lf-nvim.lua {};
       }
       {
         plugin = plugin {
@@ -123,17 +107,17 @@ in {
           ref = "show-tabline";
           rev = "7517af227efbeb424f59afba77b82a9dafaf11f9";
         };
-        config = templateSourceLua "zen-mode-nvim-config" ./zen-mode-nvim.lua {};
+        config = helpers.templateSourceLua "zen-mode-nvim-config" ./zen-mode-nvim.lua {};
       }
       plenary-nvim
       {
         plugin = nvim-cokeline;
-        config = templateSourceLua "nvim-cokeline-config" ./nvim-cokeline.lua {};
+        config = helpers.templateSourceLua "nvim-cokeline-config" ./nvim-cokeline.lua {};
       }
       telescope-fzf-native-nvim
       {
         plugin = telescope-nvim;
-        config = templateSourceLua "telescope-nvim-config" ./telescope-nvim.lua {};
+        config = helpers.templateSourceLua "telescope-nvim-config" ./telescope-nvim.lua {};
       }
       # {
       #   plugin = barbar-nvim;
@@ -209,7 +193,7 @@ in {
       # }
       # {
       #   plugin = fzf-vim;
-      #   config = templateSourceVimScript "fzf-vim-config" ./fzf-vim.vim {};
+      #   config = helpers.templateSourceVimScript "fzf-vim-config" ./fzf-vim.vim {};
       # }
     ];
   };
