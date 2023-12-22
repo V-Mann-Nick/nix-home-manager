@@ -31,6 +31,8 @@
     allowUnfree = true;
   };
 
+  manual.html.enable = true;
+
   home = rec {
     username = "nicklas";
     homeDirectory = "/home/${username}";
@@ -89,6 +91,7 @@
       dive
       gh
       python311Packages.ipython
+      dconf2nix
     ];
     shellAliases = {
       sw = "home-manager switch";
@@ -112,7 +115,6 @@
   programs.bat = {
     enable = true;
     config = {
-      theme = "Nord";
       color = "always";
     };
   };

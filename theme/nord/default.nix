@@ -177,4 +177,5 @@ in {
   _module.args = {
     inherit theme;
   };
+  programs.bat.config.theme = "Nord";
 }
