@@ -17,7 +17,7 @@
       ./zsh
       ./neovim
       ./keyboard
-      ./gnome-theme
+      ./gnome
       ./theme
       ./firefox
     ]
