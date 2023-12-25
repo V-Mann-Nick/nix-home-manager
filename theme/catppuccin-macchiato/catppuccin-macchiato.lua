@@ -1,7 +1,10 @@
 require("catppuccin").setup({
-    transparent_background = true,
+    transparent_background = false,
     integrations = {
         treesitter = true,
+        gitgutter = true,
+        coc_nvim = true,
+        lightspeed = true,
     },
     custom_highlights = function(colors)
         return {
