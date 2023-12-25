@@ -42,7 +42,6 @@
     sessionVariables = {
       TERMINAL = "kitty";
       BROWSER = "firefox";
-      EDITOR = "nvim";
       VISUAL = "nvim";
 
       # Podman auth
@@ -54,43 +53,55 @@
     ];
 
     packages = with pkgs; [
+      # Show system info
       neofetch
+
+      # OCI container runtime
       podman
+
+      # Compose for podman
       podman-compose
-      fzf
-      postgresql
-      xclip
+
+      # Clipboard utility for Wayland
+      wl-clipboard
+
+      # System monitor
       htop
+
+      # CLI for putting files into trash
       trash-cli
-      flameshot
+
+      # JSON utility
       jq
-      nomad
+
+      # Shell scripting analysis
       shellcheck
-      watchman
+
+      # Bonsai <3
       cbonsai
-      viu
+
+      # Terminal image editor
       imagemagick
-      consul
-      vault
-      nomad
+
+      # Bäähh
       vscode
-      scc
+
+      # Infrastructure as code language
       terraform
-      nomad-pack
-      go
-      nixpkgs-fmt
-      cpio
-      gitleaks
-      bfg-repo-cleaner
-      glab
-      exif
-      qpdf
-      speedtest-cli
-      jpegoptim
+
+      # Node for Typescript files
       nodePackages.ts-node
+
+      # Analyze OCI containers
       dive
+
+      # Github CLI
       gh
+
+      # Better python REPL
       python311Packages.ipython
+
+      # Convert dconf dump to nix expression
       dconf2nix
     ];
     shellAliases = {

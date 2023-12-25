@@ -46,6 +46,11 @@ in {
 
   programs.neovim = {
     enable = true;
+    extraPackages = with pkgs; [
+      # Required for coc.nvim
+      watchman
+    ];
+    defaultEditor = true;
     viAlias = true;
     vimAlias = true;
     withNodeJs = true;
