@@ -1,8 +1,4 @@
-{
-  lib,
-  config,
-  ...
-}: let
+{lib, ...}: let
   monoLisaPath = ./ttf;
   hasMonoLisa = lib.pathExists monoLisaPath;
 in {
@@ -10,11 +6,11 @@ in {
     inherit hasMonoLisa;
   };
 
-  home.file.monoLisa = {
+  xdg.dataFile.monoLisa = {
     enable = hasMonoLisa;
     recursive = true;
     source = monoLisaPath;
-    target = "${config.xdg.dataHome}/fonts/MonoLisa";
+    target = "fonts/MonoLisa";
     onChange = "fc-cache -f -v";
   };
 }

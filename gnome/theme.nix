@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   theme,
   ...
 }: let
@@ -50,24 +49,24 @@
     '';
   };
 in {
-  home.file = {
+  xdg.configFile = {
     gtk3 = {
       enable = true;
       recursive = true;
       source = "${gradienceBuild}/gtk-3.0";
-      target = "${config.xdg.configHome}/gtk-3.0";
+      target = "gtk-3.0";
     };
     gtk4 = {
       enable = true;
       recursive = true;
       source = "${gradienceBuild}/gtk-4.0";
-      target = "${config.xdg.configHome}/gtk-4.0";
+      target = "gtk-4.0";
     };
-    shellTheme = {
-      enable = true;
-      recursive = true;
-      source = "${gradienceBuild}/gradience-shell";
-      target = "${config.xdg.dataHome}/themes/gradience-shell";
-    };
+  };
+  xdg.dataFile.shellTheme = {
+    enable = true;
+    recursive = true;
+    source = "${gradienceBuild}/gradience-shell";
+    target = "themes/gradience-shell";
   };
 }

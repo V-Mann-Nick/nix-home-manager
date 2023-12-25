@@ -1,8 +1,8 @@
-{config, ...}: {
-  home.file.xkb = {
+{...}: {
+  xdg.configFile.xkb = {
     enable = true;
     recursive = true;
     source = ./xkb;
-    target = "${config.xdg.configHome}/xkb";
+    target = "xkb";
   };
 }

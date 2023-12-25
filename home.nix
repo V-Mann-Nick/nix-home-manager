@@ -20,6 +20,7 @@
       ./gnome
       ./theme
       ./firefox
+      ./dotfiles
     ]
     ++ (
       if lib.pathExists ./extension.nix
@@ -103,12 +104,6 @@
       n = "pnpm";
       D = "trash-put";
       p = "sudo pacman";
-    };
-
-    file.poetry = {
-      enable = true;
-      target = "${config.xdg.configHome}/pypoetry/config.toml";
-      text = builtins.readFile ./dotfiles/poetry-config.toml;
     };
   };
 
