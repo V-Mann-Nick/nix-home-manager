@@ -57,7 +57,6 @@
       neofetch
       podman
       podman-compose
-      ripgrep
       fzf
       postgresql
       xclip
@@ -130,6 +129,8 @@
       selection-clipboard = "clipboard";
     };
   };
+
+  programs.ripgrep.enable = true;
 
   programs.home-manager.enable = true;
 }
