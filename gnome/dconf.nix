@@ -1,4 +1,8 @@
-{lib, ...}:
+{
+  config,
+  lib,
+  ...
+}:
 with lib.hm.gvariant; {
   dconf.settings = {
     "org/gnome/desktop/calendar" = {
@@ -83,7 +87,7 @@ with lib.hm.gvariant; {
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
       binding = "<Super>Return";
-      command = "kitty";
+      command = "${config.programs.kitty.package}/bin/kitty";
       name = "Kitty";
     };
 

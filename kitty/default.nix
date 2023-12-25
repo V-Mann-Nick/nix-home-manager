@@ -4,18 +4,24 @@
   config,
   theme,
   ...
-}: {
-  home.shellAliases = {
-    kitty = "__EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json /usr/bin/kitty";
-  };
-
+}: let
+  # Fix EGL error on non-NixOS system (Arch):
+  # https://github.com/NixOS/nixpkgs/issues/122671#issuecomment-1859228734
+  entrypoint = pkgs.writeShellScript "kitty-entrypoint" ''
+    unset LD_LIBRARY_PATH
+    unset __EGL_VENDOR_LIBRARY_DIRS
+    exec ${config.programs.zsh.package}/bin/zsh $@
+  '';
+  kittyPackage = pkgs.writeShellScriptBin "kitty" ''
+    export LD_LIBRARY_PATH=/usr/lib
+    export __EGL_VENDOR_LIBRARY_DIRS=/usr/share/glvnd/egl_vendor.d
+    exec ${pkgs.kitty}/bin/kitty
+  '';
+in {
   programs.kitty = {
     enable = true;
     shellIntegration.enableZshIntegration = true;
-    package = pkgs.writeScriptBin "kittyFast" ''
-      #!/bin/sh
-      __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json /usr/bin/kitty
-    '';
+    package = kittyPackage;
     font =
       if hasMonoLisa
       then {
@@ -57,12 +63,12 @@
         kitty_mod = "alt";
         tab_bar_style = "powerline";
         tab_powerline_style = "round";
-        shell = "${config.home.homeDirectory}/.nix-profile/bin/zsh";
         confirm_os_window_close = "0";
         background_opacity = "0.95";
         hide_window_decorations = "yes";
         wayland_titlebar_color = "background";
         enable_audio_bell = "no";
+        shell = "${entrypoint}";
         placement_strategy = "top-left";
         # linux_display_server = "x11";
         symbol_map = ''
