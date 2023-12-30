@@ -16,6 +16,8 @@
 in {
   programs.firefox = {
     enable = true;
+    # Don't install firefox - installed via pacman
+    package = null;
     profiles = {
       ${profileName} = {
         extensions = with config.nur.repos.rycee.firefox-addons; [
