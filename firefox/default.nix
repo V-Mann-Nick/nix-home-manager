@@ -34,6 +34,7 @@ in {
         settings = {
           "gnomeTheme.normalWidthTabs" = true;
           "browser.toolbars.bookmarks.visibility" = "never";
+          "browser.translations.neverTranslateLanguages" = "en,de";
         };
       };
     };
