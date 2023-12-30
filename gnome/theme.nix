@@ -57,17 +57,13 @@ in {
     iconTheme = theme.gtkIcons;
     gtk3 = {
       extraConfig = {
-        Settings = ''
-          gtk-application-prefer-dark-theme=1
-        '';
+        "gtk-application-prefer-dark-theme" = 1;
       };
       extraCss = builtins.readFile "${gradienceBuild}/gtk-3.0/gtk.css";
     };
     gtk4 = {
       extraConfig = {
-        Settings = ''
-          gtk-application-prefer-dark-theme=1
-        '';
+        "gtk-application-prefer-dark-theme" = 1;
       };
       extraCss = builtins.readFile "${gradienceBuild}/gtk-4.0/gtk.css";
     };
