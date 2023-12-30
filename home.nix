@@ -35,6 +35,8 @@
 
   manual.html.enable = true;
 
+  targets.genericLinux.enable = true;
+
   home = rec {
     username = "nicklas";
     homeDirectory = "/home/${username}";

@@ -6,9 +6,6 @@
     enableCompletion = false;
     history.extended = true;
     dotDir = ".config/zsh";
-    initExtra = ''
-      fpath+=(/usr/share/zsh)
-    '';
     prezto = {
       enable = true;
       pmodules = [
