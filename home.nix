@@ -103,6 +103,9 @@
 
       # Convert dconf dump to nix expression
       dconf2nix
+
+      # For xdg-open with nix apps - needed for firefox to open links (other apps maybe too)
+      xdg-utils
     ];
     shellAliases = {
       sw = "home-manager switch";
