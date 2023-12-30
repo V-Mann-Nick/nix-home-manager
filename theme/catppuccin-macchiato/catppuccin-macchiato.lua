@@ -3,8 +3,17 @@ require("catppuccin").setup({
     integrations = {
         treesitter = true,
         gitgutter = true,
-        coc_nvim = true,
         lightspeed = true,
+        coc_nvim = true,
+        native_lsp = {
+            enabled = true,
+            underlines = {
+                errors = { "undercurl" },
+                warnings = { "undercurl" },
+                hints = { "undercurl" },
+                information = { "undercurl" },
+            },
+        },
     },
     custom_highlights = function(colors)
         return {

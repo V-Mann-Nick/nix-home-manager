@@ -6,9 +6,6 @@ set nowritebackup
 set cmdheight=1
 set updatetime=900
 set shortmess+=c
-hi CocUnderline gui=undercurl term=undercurl
-hi CocErrorHighlight gui=undercurl guisp=red
-hi CocWarningHighlight gui=undercurl guisp=yellow
 
 " Use tab for trigger completion with characters ahead and navigate
 " NOTE: There's always complete item selected by default, you may want to enable
