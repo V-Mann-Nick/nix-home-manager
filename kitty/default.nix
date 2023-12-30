@@ -4,24 +4,15 @@
   config,
   theme,
   ...
-}: let
-  # Fix EGL error on non-NixOS system (Arch):
-  # https://github.com/NixOS/nixpkgs/issues/122671#issuecomment-1859228734
-  entrypoint = pkgs.writeShellScript "kitty-entrypoint" ''
-    unset LD_LIBRARY_PATH
-    unset __EGL_VENDOR_LIBRARY_DIRS
-    exec ${config.programs.zsh.package}/bin/zsh $@
-  '';
-  kittyPackage = pkgs.writeShellScriptBin "kitty" ''
-    export LD_LIBRARY_PATH=/usr/lib
-    export __EGL_VENDOR_LIBRARY_DIRS=/usr/share/glvnd/egl_vendor.d
-    exec ${pkgs.kitty}/bin/kitty
-  '';
-in {
+}: {
   programs.kitty = {
     enable = true;
     shellIntegration.enableZshIntegration = true;
-    package = kittyPackage;
+    # Fix EGL error on non-NixOS system (Arch):
+    # https://github.com/NixOS/nixpkgs/issues/122671#issuecomment-839399163
+    package = pkgs.writeShellScriptBin "kitty" ''
+      ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty $@
+    '';
     font =
       if hasMonoLisa
       then {
@@ -68,7 +59,7 @@ in {
         hide_window_decorations = "yes";
         wayland_titlebar_color = "background";
         enable_audio_bell = "no";
-        shell = "${entrypoint}";
+        shell = "${config.programs.zsh.package}/bin/zsh";
         placement_strategy = "top-left";
         # linux_display_server = "x11";
         symbol_map = ''

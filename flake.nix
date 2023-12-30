@@ -12,6 +12,7 @@
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixgl.url = "github:guibou/nixGL";
   };
 
   outputs = {
@@ -20,10 +21,11 @@
     home-manager,
     pre-commit-hooks,
     nur,
+    nixgl,
     ...
   }: let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
+    pkgs = nixpkgs.legacyPackages.${system}.extend nixgl.overlay;
   in {
     homeConfigurations."nicklas" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
