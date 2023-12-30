@@ -25,21 +25,13 @@
           check-cmd = "/bin/sh -c \"checkupdates && yay -Qum\"";
           check-interval = 30;
           update-cmd = "kitty -- /bin/sh -c \"yay -Syu ; echo Done - Press enter to exit; read _\" ";
-          use-buildin-icons = false;
+          use-buildin-icons = true;
         };
       };
     }
-    {
-      pkg = user-themes;
-      config = {
-        "org/gnome/shell/extensions/user-theme" = {
-          name = "gradience-shell";
-        };
-      };
-    }
-    {pkg = screenshot-window-sizer;}
-    {pkg = removable-drive-menu;}
-    {pkg = native-window-placement;}
+    screenshot-window-sizer
+    removable-drive-menu
+    native-window-placement
     {
       pkg = quick-settings-tweaker;
       config = {
@@ -59,7 +51,7 @@
         };
       };
     }
-    {pkg = gsconnect;}
+    gsconnect
     {
       pkg = just-perfection;
       config = {
@@ -109,7 +101,7 @@
         };
       };
     }
-    {pkg = hibernate-status-button;}
+    hibernate-status-button
     {
       pkg = appindicator;
       config = {
@@ -118,8 +110,8 @@
         };
       };
     }
-    {pkg = quick-lang-switch;}
-    {pkg = swap-finger-gestures-3-to-4;}
+    quick-lang-switch
+    swap-finger-gestures-3-to-4
     {
       pkg = runcat;
       config = {
@@ -129,11 +121,11 @@
         };
       };
     }
-    {pkg = primary-input-on-lockscreen;}
-    {pkg = noannoyance-fork;}
-    {pkg = user-avatar-in-quick-settings;}
-    {pkg = battery-time;}
-    {pkg = autohide-battery;}
+    primary-input-on-lockscreen
+    noannoyance-fork
+    user-avatar-in-quick-settings
+    battery-time
+    autohide-battery
     {
       pkg = blur-my-shell;
       config = {
@@ -151,7 +143,11 @@
       };
     }
   ];
-  packages = map (e: e.pkg) extensions;
+  packages = map (e:
+    if (lib.attrsets.isDerivation e)
+    then e
+    else e.pkg)
+  extensions;
   uuids = map (p: p.extensionUuid) packages;
   mergedConfigs = with lib; let
     configs = map (e:

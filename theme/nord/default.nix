@@ -4,6 +4,14 @@
   ...
 }: let
   theme = {
+    gtkIcons = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-nord;
+    };
+    cursors = {
+      name = "Nordzy-cursors";
+      package = pkgs.nordzy-cursor-theme;
+    };
     gnome = {
       name = "Nord Dark";
       variables = {

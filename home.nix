@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  theme,
   ...
 }: {
   imports =
@@ -118,6 +119,8 @@
       D = "trash-put";
       p = "sudo pacman";
     };
+
+    pointerCursor = theme.cursors;
   };
 
   programs.bat = {

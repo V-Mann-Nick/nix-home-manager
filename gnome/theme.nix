@@ -48,25 +48,44 @@
       cp -r .local/share/themes/gradience-shell $out/
     '';
   };
+  shellTheme = "gradience-shell";
 in {
-  xdg.configFile = {
+  # ??? I believe that adw-gtk3 is currently an implicit dependency installed with pacman ???
+  gtk = {
+    enable = true;
+    theme.name = "adw-gtk3";
+    iconTheme = theme.gtkIcons;
     gtk3 = {
-      enable = true;
-      recursive = true;
-      source = "${gradienceBuild}/gtk-3.0";
-      target = "gtk-3.0";
+      extraConfig = {
+        Settings = ''
+          gtk-application-prefer-dark-theme=1
+        '';
+      };
+      extraCss = builtins.readFile "${gradienceBuild}/gtk-3.0/gtk.css";
     };
     gtk4 = {
-      enable = true;
-      recursive = true;
-      source = "${gradienceBuild}/gtk-4.0";
-      target = "gtk-4.0";
+      extraConfig = {
+        Settings = ''
+          gtk-application-prefer-dark-theme=1
+        '';
+      };
+      extraCss = builtins.readFile "${gradienceBuild}/gtk-4.0/gtk.css";
+    };
+  };
+  home.packages = [pkgs.gnomeExtensions.user-themes];
+  home.pointerCursor.gtk.enable = true;
+  dconf.settings = {
+    "org/gnome/shell/extensions/user-theme" = {
+      name = shellTheme;
+    };
+    "org/gnome/shell" = {
+      enabled-extensions = [pkgs.gnomeExtensions.user-themes.extensionUuid];
     };
   };
   xdg.dataFile.shellTheme = {
     enable = true;
     recursive = true;
     source = "${gradienceBuild}/gradience-shell";
-    target = "themes/gradience-shell";
+    target = "themes/${shellTheme}";
   };
 }

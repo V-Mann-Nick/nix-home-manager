@@ -26,8 +26,6 @@ with lib.hm.gvariant; {
       font-antialiasing = "rgba";
       font-hinting = "full";
       font-name = "Cantarell 11";
-      gtk-theme = "adw-gtk3";
-      icon-theme = "Adwaita";
       monospace-font-name = "MonoLisa 11";
       show-battery-percentage = true;
       toolkit-accessibility = false;

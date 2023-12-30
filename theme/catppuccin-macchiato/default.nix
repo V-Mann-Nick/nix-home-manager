@@ -4,6 +4,17 @@
   ...
 }: let
   theme = {
+    gtkIcons = {
+      name = "Papirus-Dark";
+      package = pkgs.catppuccin-papirus-folders.override {
+        flavor = "macchiato";
+        accent = "flamingo";
+      };
+    };
+    cursors = {
+      name = "Catppuccin-Macchiato-Dark-Cursors";
+      package = pkgs.catppuccin-cursors.macchiatoDark;
+    };
     gnome = {
       name = "Catppuccin Macchiato";
       variables = {
