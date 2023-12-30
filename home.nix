@@ -42,6 +42,23 @@
     homeDirectory = "/home/${username}";
     stateVersion = "23.11";
 
+    language = let
+      en = "en_US.UTF-8";
+      de = "de_DE.UTF-8";
+    in {
+      base = en;
+      address = de;
+      numeric = de;
+      time = de;
+      monetary = de;
+      paper = de;
+      name = en;
+      telephone = de;
+      measurement = de;
+      collate = en;
+      ctype = en;
+    };
+
     sessionVariables = {
       TERMINAL = "kitty";
       BROWSER = "firefox";
