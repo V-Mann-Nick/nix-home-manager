@@ -15,7 +15,7 @@
       paths = [pkgs.kitty];
       postBuild = let
         binWrapped = pkgs.writeShellScript "kitty-bin-wrapped" ''
-          ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty
+          ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty $@
         '';
       in ''
         rm $out/bin/kitty
