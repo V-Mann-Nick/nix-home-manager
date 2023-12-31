@@ -10,9 +10,18 @@
     shellIntegration.enableZshIntegration = true;
     # Fix EGL error on non-NixOS system (Arch):
     # https://github.com/NixOS/nixpkgs/issues/122671#issuecomment-839399163
-    package = pkgs.writeShellScriptBin "kitty" ''
-      ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty $@
-    '';
+    package = pkgs.symlinkJoin {
+      name = "kitty-wrapped";
+      paths = [pkgs.kitty];
+      postBuild = let
+        binWrapped = pkgs.writeShellScript "kitty-bin-wrapped" ''
+          ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.kitty}/bin/kitty
+        '';
+      in ''
+        rm $out/bin/kitty
+        ln -s ${binWrapped} $out/bin/kitty
+      '';
+    };
     font =
       if hasMonoLisa
       then {
