@@ -9,45 +9,14 @@
       lfcd = pkgs.writeText "lfcd-source" (builtins.readFile ./lfcd.sh);
     in "source ${lfcd} && lfcdFn";
   };
+  xdg.configFile.lfIcons = {
+    enable = true;
+    source = ./icons;
+    target = "lf/icons";
+  };
   programs.lf = {
     enable = true;
-    package = pkgs.symlinkJoin {
-      name = "lf-wrapped";
-      paths = [pkgs.lf];
-      postBuild = let
-        icons = import ./icons.nix;
-        setToEnvVar = set: lib.concatStringsSep ":" (lib.attrValues (lib.mapAttrs (ext: icon: "${ext}=${icon}") set));
-        iconEnvVar = setToEnvVar icons;
-        binWrapped = pkgs.writeShellScript "lf-wrapped" ''
-          LF_ICONS="${iconEnvVar}" ${pkgs.lf}/bin/lf "$@"
-        '';
-      in ''
-        rm $out/bin/lf
-        ln -s ${binWrapped} $out/bin/lf
-      '';
-    };
-    settings = {
-      drawbox = true;
-      icons = true;
-    };
-    keybindings = let
-      aliasesCd = builtins.listToAttrs (lib.mapAttrsToList (alias: path: {
-          name = "g${alias}";
-          value = "cd ${path}";
-        })
-        config._module.args.aliases);
-    in
-      {
-        "D" = ''
-          $IFS=''\"$(printf ''\'''\\n''\\t''\')''\"; ${pkgs.trash-cli}/bin/trash-put -- $fx
-        '';
-        "C" = "push $touch<space>";
-        "M" = "push $mkdir<space>";
-        "<backspace>" = "set hidden!";
-        "<backspace2>" = "set hidden!";
-      }
-      // aliasesCd;
-    extraConfig = let
+    settings = let
       previewer = pkgs.writeShellApplication {
         name = "lf-previewer";
         runtimeInputs = with pkgs; [
@@ -74,9 +43,28 @@
         runtimeInputs = [config.programs.kitty.package];
         text = builtins.readFile ./preview-cleaner.sh;
       };
-    in ''
-      set previewer ${previewer}/bin/lf-previewer
-      set cleaner ${previewCleaner}/bin/lf-preview-cleaner
-    '';
+    in {
+      drawbox = true;
+      icons = true;
+      previewer = "${previewer}/bin/lf-previewer";
+      cleaner = "${previewCleaner}/bin/lf-preview-cleaner";
+    };
+    keybindings = let
+      aliasesCd = builtins.listToAttrs (lib.mapAttrsToList (alias: path: {
+          name = "g${alias}";
+          value = "cd ${path}";
+        })
+        config._module.args.aliases);
+    in
+      {
+        "D" = ''
+          $IFS=''\"$(printf ''\'''\\n''\\t''\')''\"; ${pkgs.trash-cli}/bin/trash-put -- $fx
+        '';
+        "C" = "push $touch<space>";
+        "M" = "push $mkdir<space>";
+        "<backspace>" = "set hidden!";
+        "<backspace2>" = "set hidden!";
+      }
+      // aliasesCd;
   };
 }
