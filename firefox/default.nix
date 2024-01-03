@@ -37,6 +37,9 @@ in {
           "gnomeTheme.normalWidthTabs" = true;
           "browser.toolbars.bookmarks.visibility" = "never";
           "browser.translations.neverTranslateLanguages" = "en,de";
+          # https://wiki.archlinux.org/title/Firefox#Font_troubleshooting
+          "gfx.font_rendering.fontconfig.max_generic_substitutions" = 127;
+          "gfx.font_rendering.opentype_svg.enabled" = false;
         };
       };
     };

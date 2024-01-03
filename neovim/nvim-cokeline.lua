@@ -102,19 +102,16 @@ require("cokeline").setup({
             ---@param buffer Buffer
             text = function(buffer)
                 if buffer.is_modified then
-                    return ""
+                    return " "
                 end
                 if buffer.is_hovered then
-                    return "󰅙"
+                    return "󰅙 "
                 end
-                return "󰅖"
+                return "󰅖 "
             end,
             on_click = function(_, _, _, _, buffer)
                 buffer:delete()
             end,
-        },
-        {
-            text = " ",
         },
         {
             text = "",

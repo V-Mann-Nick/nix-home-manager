@@ -11,7 +11,7 @@
       ./direnv
       ./favorite-dirs.nix
       ./lib.nix
-      ./mono-lisa
+      ./fonts
       ./kitty
       ./git
       ./starship
