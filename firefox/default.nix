@@ -40,6 +40,9 @@ in {
           # https://wiki.archlinux.org/title/Firefox#Font_troubleshooting
           "gfx.font_rendering.fontconfig.max_generic_substitutions" = 127;
           "gfx.font_rendering.opentype_svg.enabled" = false;
+          "font.name.serif.x-western" = "Ubuntu";
+          "font.name.sans-serif.x-western" = "Ubuntu";
+          "font.name.monospace.x-western" = "MonoLisa";
         };
       };
     };

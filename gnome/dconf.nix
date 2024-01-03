@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  hasMonoLisa,
   ...
 }:
 with lib.hm.gvariant; {
@@ -16,25 +15,17 @@ with lib.hm.gvariant; {
       xkb-options = ["caps:escape"];
     };
 
-    "org/gnome/desktop/interface" =
-      {
-        clock-format = "24h";
-        clock-show-date = true;
-        clock-show-seconds = true;
-        clock-show-weekday = true;
-        color-scheme = "prefer-dark";
-        enable-animations = true;
-        enable-hot-corners = false;
-        show-battery-percentage = true;
-        toolkit-accessibility = false;
-      }
-      // (
-        if hasMonoLisa
-        then {
-          monospace-font-name = "MonoLisa 11";
-        }
-        else {}
-      );
+    "org/gnome/desktop/interface" = {
+      clock-format = "24h";
+      clock-show-date = true;
+      clock-show-seconds = true;
+      clock-show-weekday = true;
+      color-scheme = "prefer-dark";
+      enable-animations = true;
+      enable-hot-corners = false;
+      show-battery-percentage = true;
+      toolkit-accessibility = false;
+    };
 
     "org/gnome/desktop/wm/keybindings" = {
       activate-window-menu = [];

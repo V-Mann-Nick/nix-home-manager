@@ -26,7 +26,29 @@ in {
     (nerdfonts.override {
       fonts = ["NerdFontsSymbolsOnly"];
     })
+    ubuntu_font_family
   ];
+
+  dconf.settings = {
+    "org/gnome/desktop/interface" =
+      {
+        font-name = "Ubuntu 11";
+        document-font-name = "Ubuntu 11";
+        font-antialiasing = "rgba";
+      }
+      // (
+        if hasMonoLisa
+        then {
+          monospace-font-name = "MonoLisa 11";
+        }
+        else {
+          monospace-font-name = "Ubuntu Mono 11";
+        }
+      );
+    "org/gnome/desktop/wm/preferences" = {
+      titlebar-font = "Ubuntu Bold 11";
+    };
+  };
 
   xdg.configFile.fontConfig = {
     enable = true;
