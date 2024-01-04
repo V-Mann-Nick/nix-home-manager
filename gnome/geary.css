@@ -1,0 +1,7 @@
+@media (prefers-color-scheme: dark) {
+  :root,
+  *:not(a) {
+    color: {{text_color}} !important;
+    background-color: {{background_color}} !important;
+  }
+}
