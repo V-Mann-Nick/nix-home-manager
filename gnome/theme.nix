@@ -10,20 +10,17 @@
   #   - remove step to set the shell theme - we're only want to generate it here
   # All in all this is a super hacky way to generate the themes using Gradience.
   # !!!Caution when updating Gradience - this patch will probably need to be updated.!!!
-  gradiencePkgs = with pkgs;
-    extend (_: prev: {
-      gradience = prev.gradience.overrideAttrs (old: {
-        version = "0.8.0-beta1";
-        propagatedBuildInputs = old.propagatedBuildInputs ++ [python3Packages.libsass];
-        src = prev.fetchgit {
-          url = "https://github.com/GradienceTeam/Gradience.git";
-          rev = "06b83cee3b84916ab9812a47a84a28ca43c8e53f";
-          sha256 = "sha256-gdY5QG0STLHY9bw5vI49rY6oNT8Gg8oxqHeEbqM4XfM=";
-          fetchSubmodules = true;
-        };
-        patches = (old.patches or []) ++ [./gradience.patch];
-      });
-    });
+  gradience = pkgs.gradience.overrideAttrs (old: {
+    version = "0.8.0-beta1";
+    propagatedBuildInputs = old.propagatedBuildInputs ++ [pkgs.python3Packages.libsass];
+    src = pkgs.fetchgit {
+      url = "https://github.com/GradienceTeam/Gradience.git";
+      rev = "06b83cee3b84916ab9812a47a84a28ca43c8e53f";
+      sha256 = "sha256-gdY5QG0STLHY9bw5vI49rY6oNT8Gg8oxqHeEbqM4XfM=";
+      fetchSubmodules = true;
+    };
+    patches = (old.patches or []) ++ [./gradience.patch];
+  });
   # Stub the gnome-shell binary to satisfy the check without downloading Gnome
   gnomeShellStub = pkgs.writeShellScriptBin "gnome-shell" ''
     echo "GNOME Shell 45.2"
@@ -38,8 +35,8 @@
       export HOME=$TMPDIR
       export XDG_CURRENT_DESKTOP=GNOME
       mkdir -p $HOME/.config/presets
-      ${gradiencePkgs.gradience}/bin/gradience-cli apply -p $presetPath --gtk both
-      ${gradiencePkgs.gradience}/bin/gradience-cli gnome-shell -p $presetPath -v dark
+      ${gradience}/bin/gradience-cli apply -p $presetPath --gtk both
+      ${gradience}/bin/gradience-cli gnome-shell -p $presetPath -v dark
     '';
     installPhase = ''
       mkdir -p $out
