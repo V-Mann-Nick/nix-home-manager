@@ -14,6 +14,8 @@ vim.opt.pumheight = 10
 vim.opt.relativenumber = true
 -- Disable auto commenting on new lines
 vim.opt.formatoptions:remove({ "c", "r", "o" })
+-- No sign column flickering
+vim.opt.signcolumn = "yes:1"
 
 -- Search for the visual selection
 vim.keymap.set("v", "//", "y/<C-R>0<CR>", { noremap = true })
@@ -26,10 +28,10 @@ vim.keymap.set("n", "mO", "O<Esc>j", { noremap = true })
 vim.keymap.set("n", "<leader>S", ":%s//g<Left><Left>", { noremap = true })
 
 -- Shortcutting split navigation, saving a keypress:
-vim.keymap.set("n", "<C-h>", "<C-w>h", { noremap = true })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { noremap = true })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { noremap = true })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { noremap = true })
+vim.keymap.set("n", "<Space>h", "<C-w>h", { noremap = true })
+vim.keymap.set("n", "<Space>j", "<C-w>j", { noremap = true })
+vim.keymap.set("n", "<Space>k", "<C-w>k", { noremap = true })
+vim.keymap.set("n", "<Space>l", "<C-w>l", { noremap = true })
 
 -- Ctrl + alt to resize windows
 vim.keymap.set("n", "<C-M-j>", ":resize -2<CR>", { noremap = true, silent = true })
