@@ -30,19 +30,17 @@ in {
     };
   };
 
-  home.shellAliases =
-    {
-      suvim = "sudo nvim -u ${config.xdg.configHome}/nvim/init.lua";
-    }
-    // (
-      if config.programs.kitty.enable
-      then {
-        nvim = "${pkgs.writeShellScript "nvim-kitty-spacing" ''
-          kitty @ set-spacing padding=0 && nvim $@ && kitty @ set-spacing padding=8
-        ''}";
-      }
-      else {}
-    );
+  home.shellAliases = {
+    suvim = "sudo nvim -u ${config.xdg.configHome}/nvim/init.lua";
+    nvim = let
+      kittyBin = "${config.programs.kitty.package}/bin/kitty";
+      nvimBin = "${config.programs.neovim.finalPackage}/bin/nvim";
+      kittyPadding = builtins.toString config.programs.kitty.settings.window_padding_width;
+      script = pkgs.writeShellScript "nvim-kitty-spacing" ''
+        ${kittyBin} @ set-spacing padding=0 && ${nvimBin} $@ && ${kittyBin} @ set-spacing padding=${kittyPadding}
+      '';
+    in "${script}";
+  };
 
   programs.neovim = {
     enable = true;

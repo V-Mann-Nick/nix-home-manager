@@ -59,7 +59,7 @@
         allow_remote_control = "yes";
         draw_minimal_borders = "no";
         enabled_layouts = "tall,grid,stack";
-        window_padding_width = "8 8";
+        window_padding_width = 8;
         kitty_mod = "alt";
         tab_bar_style = "powerline";
         tab_powerline_style = "round";
