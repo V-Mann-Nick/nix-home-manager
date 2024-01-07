@@ -4,6 +4,9 @@
   helpers,
   ...
 }: {
+  programs.neovim.extraPackages = [
+    pkgs.watchman
+  ];
   programs.neovim.coc = {
     enable = true;
     package = neovim.plugin {
