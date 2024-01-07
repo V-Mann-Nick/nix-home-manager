@@ -54,7 +54,7 @@ in {
     viAlias = true;
     vimAlias = true;
     withNodeJs = true;
-    extraConfig = helpers.templateSourceVimScript "nvim-extra-config" ./base-config.vim {inherit leader;};
+    extraConfig = helpers.templateSourceLua "nvim-extra-config" ./base-config.lua {inherit leader;};
     plugins = with pkgs.vimPlugins; [
       {
         plugin = auto-pairs;
