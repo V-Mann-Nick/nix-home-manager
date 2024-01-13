@@ -33,6 +33,7 @@
       extraSpecialArgs = {inherit inputs;};
       modules = [./home.nix];
     };
+    hmConfig = import ./home.nix;
     formatter.${system} = pkgs.writeScriptBin "home-manager-fmt" ''
       ${pkgs.pre-commit}/bin/pre-commit run --all-files
     '';
