@@ -63,6 +63,11 @@ with lib.hm.gvariant; {
         toggle-maximized = ["<Super>f"];
       };
 
+      "org/gnome/desktop/wm/preferences" = {
+        focus-mode = "sloppy";
+        num-workspaces = 7;
+      };
+
       "org/gnome/shell/keybindings" = {
         switch-to-application-1 = [];
         switch-to-application-2 = [];
@@ -78,6 +83,11 @@ with lib.hm.gvariant; {
       "org/gnome/mutter/keybindings" = {
         toggle-tiled-left = [];
         toggle-tiled-right = [];
+      };
+
+      "org/gnome/mutter" = {
+        edge-tiling = true;
+        workspaces-only-on-primary = true;
       };
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
@@ -108,7 +118,9 @@ with lib.hm.gvariant; {
     in
       {
         ${basePath} = {
-          "custom-keybindings" = bindingsList;
+          custom-keybindings = bindingsList;
+          www = ["<Shift><Super>w"];
+          help = [];
         };
       }
       // keyBindings);
