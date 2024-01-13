@@ -3,8 +3,19 @@
   pkgs,
   lib,
   theme,
+  inputs,
   ...
 }: {
+  nixpkgs = {
+    overlays = [
+      inputs.nur.overlay
+      inputs.nixgl.overlay
+    ];
+    config = {
+      allowUnfree = true;
+    };
+  };
+
   imports =
     [
       ./lf
@@ -28,10 +39,6 @@
       then [./extension.nix]
       else []
     );
-
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
 
   manual.html.enable = true;
 

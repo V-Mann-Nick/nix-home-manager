@@ -12,7 +12,10 @@
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixgl.url = "github:guibou/nixGL";
+    nixgl = {
+      url = "github:guibou/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -20,19 +23,15 @@
     nixpkgs,
     home-manager,
     pre-commit-hooks,
-    nur,
-    nixgl,
     ...
-  }: let
+  } @ inputs: let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system}.extend nixgl.overlay;
+    pkgs = nixpkgs.legacyPackages.${system};
   in {
     homeConfigurations."nicklas" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = [
-        ./home.nix
-        nur.hmModules.nur
-      ];
+      extraSpecialArgs = {inherit inputs;};
+      modules = [./home.nix];
     };
     formatter.${system} = pkgs.writeScriptBin "home-manager-fmt" ''
       ${pkgs.pre-commit}/bin/pre-commit run --all-files
